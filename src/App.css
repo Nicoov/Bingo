@@ -63,7 +63,7 @@
 }
 
 .container-numero {
-  width: 50%;
+  width: 100%;
   align-items: center;
 }
 
@@ -146,7 +146,7 @@ table th tr {
 }
 
 #content {
-  width: 50%;
+  width: 100%;
 }
 
 #bingotable {
