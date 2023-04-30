@@ -130,7 +130,8 @@ table th tr {
   font-weight: 600;
   font-size: 15pt;
   height: 40px;
-  width: 131px;
+  width: 60px;
+  cursor: pointer;
 }
 
 .boton-bingo:hover {
@@ -163,7 +164,7 @@ td {
   font-family: Helvetica;
   margin: 0 auto;
   text-align: center;
-  border: 3px solid black;
+  /* border: 3px solid black; */
   width: 20%;
 }
 
