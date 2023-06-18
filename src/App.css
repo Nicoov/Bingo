@@ -134,6 +134,10 @@ table th tr {
   cursor: pointer;
 }
 
+.marcado{
+  background-color: #95DE7F;
+}
+
 .boton-bingo:hover {
   color: white;
   background-color: #95DE7F;
