@@ -157,12 +157,15 @@ function Loteria() {
           </div>
         </div>
         <div className='container-button'>
-          <button className='bingo-final' onClick={() => guardarBingos()}><p>BINGO!</p></button>
+          {/* <button className='bingo-final' onClick={() => guardarBingos()}><p>BINGO!</p></button> */}
           <button className='bingo-reinicio' onClick={() => reiniciarBingo()}><p>REINICIAR</p></button>
         </div>
+        <div className='container-button-final'>
         <button className='bingo-final'>
           <Link to="/bingo">Bingo</Link>
         </button>
+        </div>
+        
       </div>
     </div>
   );

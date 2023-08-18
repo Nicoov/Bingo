@@ -17,7 +17,7 @@
 
 .container-numero p {
   font-family: 'Roboto', sans-serif;
-  font-size: 200pt;
+  font-size: 164px;
   font-weight: 600;
   margin: 0 auto;
   text-align: center;
@@ -135,12 +135,12 @@ table th tr {
 }
 
 .marcado{
-  background-color: #95DE7F;
+  background-color: #B1AFFF;
 }
 
 .boton-bingo:hover {
   color: white;
-  background-color: #95DE7F;
+  background-color: #B1AFFF;
   transition: var(--tran-03);
 }
 
@@ -183,10 +183,31 @@ tbody {
   border-color: inherit;
 }
 
+.bingo-final {
+  border-radius: 20px;
+}
+
 .bingo-final p{
   font-size: 20px;
 }
 
+.bingo-reinicio {
+  border-radius: 20px;
+}
+
+
 .bingo-reinicio p{
   font-size: 20px;
+}
+
+.container-button-final{
+  width: 100%;
+  place-content: center;
+  display: flex;
+}
+
+.container-button-final a{
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Roboto, sans-serif;
 }

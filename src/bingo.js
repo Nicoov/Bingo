@@ -1,48 +1,44 @@
 
 import './App.css';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 
 function Bingo() {
   const [numero, setNumero] = useState('');
-  const [activo, setActivo] = useState(false);
-  const [bingos, setBingos] = useState(() => {
-    const saveBingos = window.localStorage.getItem("bingosData");
-    if (saveBingos) {
-      return JSON.parse(saveBingos)
+  const [numerosMarcados, setNumerosMarcados] = useState([]);
+  // const [bingos, setBingos] = useState(() => {
+  //   const saveBingos = window.localStorage.getItem("bingosData");
+  //   if (saveBingos) {
+  //     return JSON.parse(saveBingos)
+  //   } else {
+  //     return []
+  //   }
+  // })
+
+  useEffect(()=>{
+    window.localStorage.setItem("lotaData", JSON.stringify(numerosMarcados))
+  },[numerosMarcados])
+
+  const toggleNumeroMarcado = (numero) => {
+    setNumero(numero)
+    if (numerosMarcados.includes(numero)) {
+      setNumerosMarcados(numerosMarcados.filter((n) => n !== numero));
     } else {
-      return []
+      setNumerosMarcados([...numerosMarcados, numero]);
     }
-  })
-
-  useEffect(() => {
-    window.localStorage.setItem("bingosData", JSON.stringify(bingos))
-  }, [bingos])
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    setNumero(e.target.name);
-    if (e.target.name) {
-      const bingo = bingos;
-      bingo.push({
-        numero: e.target.name
-      })
-      setBingos(bingo)
-    }
-  }
-
+  };
 
   const reiniciarBingo = () => {
-    setNumero("")
-    setBingos([])
-  }
+    setNumerosMarcados([]);
+    setNumero('')
+  };
 
 
 
   const guardarBingos = (e) => {
-    setBingos([...bingos, "BingoFinalizado"])
-    console.log(bingos)
-  }
-
+    setNumerosMarcados([...numerosMarcados])
+    console.log(numerosMarcados);
+  };
 
   return (
     <div className="App">
@@ -58,109 +54,109 @@ function Bingo() {
                 <th class="title">O</th>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B1' onClick={handleChange}>1</button ></td>
-                <td><button className='boton-bingo' name='I16' onClick={handleChange}>16</button ></td>
-                <td><button className='boton-bingo' name='N31' onClick={handleChange}>31</button ></td>
-                <td><button className='boton-bingo' name='G46' onClick={handleChange}>46</button ></td>
-                <td><button className='boton-bingo' name='O61' onClick={handleChange}>61</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B1') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B1')}>1</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I16') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I16')}>16</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N31') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N31')}>31</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G46') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G46')}>46</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O61') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O61')}>61</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B2' onClick={handleChange}>2</button ></td>
-                <td><button className='boton-bingo' name='I17' onClick={handleChange}>17</button ></td>
-                <td><button className='boton-bingo' name='N32' onClick={handleChange}>32</button ></td>
-                <td><button className='boton-bingo' name='G47' onClick={handleChange}>47</button ></td>
-                <td><button className='boton-bingo' name='O62' onClick={handleChange}>62</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B2') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B2')}>2</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I17') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I17')}>17</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N32') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N32')}>32</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G47') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G47')}>47</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O62') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O62')}>62</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B3' onClick={handleChange}>3</button ></td>
-                <td><button className='boton-bingo' name='I18' onClick={handleChange}>18</button ></td>
-                <td><button className='boton-bingo' name='N33' onClick={handleChange}>33</button ></td>
-                <td><button className='boton-bingo' name='G48' onClick={handleChange}>48</button ></td>
-                <td><button className='boton-bingo' name='O63' onClick={handleChange}>63</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B3') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B3')}>3</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I18') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I18')}>18</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N33') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N33')}>33</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G48') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G48')}>48</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O63') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O63')}>63</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B4' onClick={handleChange}>4</button ></td>
-                <td><button className='boton-bingo' name='I19' onClick={handleChange}>19</button ></td>
-                <td><button className='boton-bingo' name='N34' onClick={handleChange}>34</button ></td>
-                <td><button className='boton-bingo' name='G49' onClick={handleChange}>49</button ></td>
-                <td><button className='boton-bingo' name='O64' onClick={handleChange}>64</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B4') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B4')}>4</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I19') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I19')}>19</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N34') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N34')}>34</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G49') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G49')}>49</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O64') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O64')}>64</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B5' onClick={handleChange}>5</button ></td>
-                <td><button className='boton-bingo' name='I20' onClick={handleChange}>20</button ></td>
-                <td><button className='boton-bingo' name='N35' onClick={handleChange}>35</button ></td>
-                <td><button className='boton-bingo' name='G50' onClick={handleChange}>50</button ></td>
-                <td><button className='boton-bingo' name='O65' onClick={handleChange}>65</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B5') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B5')}>5</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I20') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I20')}>20</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N35') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N35')}>35</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G50') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G50')}>50</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O65') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O65')}>65</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B6' onClick={handleChange}>6</button ></td>
-                <td><button className='boton-bingo' name='I21' onClick={handleChange}>21</button ></td>
-                <td><button className='boton-bingo' name='N36' onClick={handleChange}>36</button ></td>
-                <td><button className='boton-bingo' name='G51' onClick={handleChange}>51</button ></td>
-                <td><button className='boton-bingo' name='O66' onClick={handleChange}>66</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B6') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B6')}>6</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I21') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I21')}>21</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N36') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N36')}>36</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G51') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G51')}>51</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O66') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O66')}>66</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B7' onClick={handleChange}>7</button ></td>
-                <td><button className='boton-bingo' name='I22' onClick={handleChange}>22</button ></td>
-                <td><button className='boton-bingo' name='N37' onClick={handleChange}>37</button ></td>
-                <td><button className='boton-bingo' name='G52' onClick={handleChange}>52</button ></td>
-                <td><button className='boton-bingo' name='O67' onClick={handleChange}>67</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B7') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B7')}>7</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I22') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I22')}>22</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N37') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N37')}>37</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G52') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G52')}>52</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O67') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O67')}>67</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B8' onClick={handleChange}>8</button ></td>
-                <td><button className='boton-bingo' name='I23' onClick={handleChange}>23</button ></td>
-                <td><button className='boton-bingo' name='N38' onClick={handleChange}>38</button ></td>
-                <td><button className='boton-bingo' name='G53' onClick={handleChange}>53</button ></td>
-                <td><button className='boton-bingo' name='O68' onClick={handleChange}>68</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B8') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B8')}>8</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I23') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I23')}>23</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N38') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N38')}>38</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G53') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G53')}>53</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O68') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O68')}>68</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B9' onClick={handleChange}>9</button ></td>
-                <td><button className='boton-bingo' name='I24' onClick={handleChange}>24</button ></td>
-                <td><button className='boton-bingo' name='N39' onClick={handleChange}>39</button ></td>
-                <td><button className='boton-bingo' name='G54' onClick={handleChange}>54</button ></td>
-                <td><button className='boton-bingo' name='O69' onClick={handleChange}>69</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B9') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B9')}>9</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I24') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I24')}>24</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N39') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N39')}>39</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G54') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G54')}>54</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O69') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O69')}>69</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B10' onClick={handleChange}>10</button ></td>
-                <td><button className='boton-bingo' name='I25' onClick={handleChange}>25</button ></td>
-                <td><button className='boton-bingo' name='N40' onClick={handleChange}>40</button ></td>
-                <td><button className='boton-bingo' name='G55' onClick={handleChange}>55</button ></td>
-                <td><button className='boton-bingo' name='O70' onClick={handleChange}>70</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B10') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B10')}>10</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I25') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I25')}>25</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N40') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N40')}>40</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G55') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G55')}>55</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O70') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O70')}>70</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B11' onClick={handleChange}>11</button ></td>
-                <td><button className='boton-bingo' name='I26' onClick={handleChange}>26</button ></td>
-                <td><button className='boton-bingo' name='N41' onClick={handleChange}>41</button ></td>
-                <td><button className='boton-bingo' name='G56' onClick={handleChange}>56</button ></td>
-                <td><button className='boton-bingo' name='O71' onClick={handleChange}>71</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B11') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B11')}>11</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I26') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I26')}>26</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N41') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N41')}>41</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G56') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G56')}>56</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O71') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O71')}>71</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B12' onClick={handleChange}>12</button ></td>
-                <td><button className='boton-bingo' name='I27' onClick={handleChange}>27</button ></td>
-                <td><button className='boton-bingo' name='N42' onClick={handleChange}>42</button ></td>
-                <td><button className='boton-bingo' name='G57' onClick={handleChange}>57</button ></td>
-                <td><button className='boton-bingo' name='O72' onClick={handleChange}>72</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B12') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B12')}>12</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I27') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I27')}>27</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N42') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N42')}>42</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G57') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G57')}>57</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O72') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O72')}>72</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B13' onClick={handleChange}>13</button ></td>
-                <td><button className='boton-bingo' name='I28' onClick={handleChange}>28</button ></td>
-                <td><button className='boton-bingo' name='N43' onClick={handleChange}>43</button ></td>
-                <td><button className='boton-bingo' name='G58' onClick={handleChange}>58</button ></td>
-                <td><button className='boton-bingo' name='O73' onClick={handleChange}>73</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B13') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B13')}>13</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I28') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I28')}>28</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N43') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N43')}>43</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G58') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G58')}>58</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O73') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O73')}>73</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B14' onClick={handleChange}>14</button ></td>
-                <td><button className='boton-bingo' name='I29' onClick={handleChange}>29</button ></td>
-                <td><button className='boton-bingo' name='N44' onClick={handleChange}>44</button ></td>
-                <td><button className='boton-bingo' name='G59' onClick={handleChange}>59</button ></td>
-                <td><button className='boton-bingo' name='O74' onClick={handleChange}>74</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B14') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B14')}>14</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I29') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I29')}>29</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N44') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N44')}>44</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G59') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G59')}>59</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O74') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O74')}>74</button></td>
               </tr>
               <tr>
-                <td><button className='boton-bingo' name='B15' onClick={handleChange}>15</button ></td>
-                <td><button className='boton-bingo' name='I30' onClick={handleChange}>30</button ></td>
-                <td><button className='boton-bingo' name='N45' onClick={handleChange}>45</button ></td>
-                <td><button className='boton-bingo' name='G60' onClick={handleChange}>60</button ></td>
-                <td><button className='boton-bingo' name='O75' onClick={handleChange}>75</button ></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('B15') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('B15')}>15</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('I30') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('I30')}>30</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('N45') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('N45')}>45</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('G60') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('G60')}>60</button></td>
+              <td><button className={`boton-bingo ${numerosMarcados.includes('O75') ? 'marcado' : ''}`} onClick={() => toggleNumeroMarcado('O75')}>75</button></td>
               </tr>
             </table>
           </div>
@@ -170,10 +166,15 @@ function Bingo() {
           </div>
         </div>
         <div className='container-button'>
-          <button className='bingo-final' onClick={() => guardarBingos()}><p>BINGO!</p></button>
+          {/* <button className='bingo-final' onClick={() => guardarBingos()}><p>BINGO!</p></button> */}
           <button className='bingo-reinicio' onClick={() => reiniciarBingo()}><p>REINICIAR</p></button>
         </div>
-
+        <div className='container-button-final'>
+        <button className='bingo-final'>
+        <a href='/'>Ir a Lota</a>
+        </button>
+        </div>
+        
         {/* <h1>Bingos jugados</h1>
         <div className="bingo-numeros">
           <div className="numero-bingos">{bingos.map((bin) => { return (<p>{bin.numero}</p>) })}</div>

@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Bingo from './bingo'
 import Loteria from './lota';
 
-function App() {
+function DesktopBingoAndLoteria() {
   return (
     <div>
       <Routes>
@@ -18,4 +18,4 @@ function App() {
 }
 
 
-export default App;
+export default DesktopBingoAndLoteria;
